@@ -16,6 +16,7 @@ const ARCHIVOS = [
   'assets/css/styles.css',
   'assets/js/script.js',
   'assets/img/logo.png',
+  'assets/img/FondoHero.jpg',
 ];
 
 // Limpiar y crear dist/

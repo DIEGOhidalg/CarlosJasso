@@ -217,6 +217,23 @@ a { text-decoration: none; transition: var(--transicion); }
 /* ── Hero ───────────────────────────────────────────────────── */
 #hero {
   background-color: var(--marfil);
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(248, 246, 241, .99) 0%,
+      rgba(248, 246, 241, .96) 38%,
+      rgba(248, 246, 241, .80) 57%,
+      rgba(248, 246, 241, .28) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(23, 63, 55, .04) 0%,
+      rgba(23, 63, 55, .14) 100%
+    ),
+    url('../img/FondoHero.jpg');
+  background-position: center, center, 68% center;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 5rem 0 4rem;
   position: relative;
   overflow: hidden;
@@ -225,25 +242,25 @@ a { text-decoration: none; transition: var(--transicion); }
 #hero::before {
   content: '';
   position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(circle, rgba(23,63,55,.06) 0%, transparent 70%);
-  border-radius: 50%;
+  inset: 0;
+  background:
+    radial-gradient(circle at 88% 32%, rgba(23,63,55,.08) 0%, transparent 38%),
+    linear-gradient(90deg, transparent 55%, rgba(255,255,255,.08) 100%);
   pointer-events: none;
 }
 
 #hero::after {
   content: '';
   position: absolute;
-  bottom: -80px;
-  left: -80px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(168,159,145,.08) 0%, transparent 70%);
-  border-radius: 50%;
+  inset: auto 0 0;
+  height: 110px;
+  background: linear-gradient(to bottom, transparent, rgba(248,246,241,.46));
   pointer-events: none;
+}
+
+#hero > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-eyebrow {
@@ -304,13 +321,18 @@ a { text-decoration: none; transition: var(--transicion); }
 
 /* ── Formulario Hero ────────────────────────────────────────── */
 .form-card {
-  background: var(--blanco);
+  background: rgba(255,255,255,.96);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: var(--radio-lg);
-  box-shadow: var(--sombra-media);
+  box-shadow: 0 20px 55px rgba(23,63,55,.16);
   padding: 2.25rem 2rem;
   position: relative;
   z-index: 1;
   border-top: 4px solid var(--verde-petroleo);
+  border-right: 1px solid rgba(255,255,255,.72);
+  border-bottom: 1px solid rgba(255,255,255,.72);
+  border-left: 1px solid rgba(255,255,255,.72);
 }
 
 .form-card-title {
@@ -979,7 +1001,14 @@ textarea.form-control { resize: vertical; min-height: 90px; }
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 991.98px) {
-  #hero { padding: 4rem 0 3rem; }
+  #hero {
+    background-image:
+      linear-gradient(rgba(248,246,241,.90), rgba(248,246,241,.94)),
+      url('../img/FondoHero.jpg');
+    background-position: center, 72% center;
+    background-size: cover;
+    padding: 4rem 0 3rem;
+  }
   .timeline-wrap::before { display: none; }
   .step-card { padding: 1rem; }
   .carlos-stat-grid { grid-template-columns: 1fr 1fr; }
