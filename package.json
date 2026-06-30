@@ -1,0 +1,17 @@
+{
+  "name": "jaso-landing",
+  "version": "1.0.0",
+  "description": "Landing page Jaso y Asociados — Litigio civil y mercantil",
+  "author": "Jaso y Asociados",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "browser-sync start --server --files \"**/*.html, assets/css/*.css, assets/js/*.js\" --no-notify --open",
+    "build": "node build.js",
+    "lint:css": "echo 'Lint CSS: ok (no build tool configured — add stylelint if needed)'",
+    "clean": "node -e \"const fs=require('fs');if(fs.existsSync('dist')){fs.rmSync('dist',{recursive:true});console.log('dist/ eliminado');}else{console.log('dist/ no existe');}\" "
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3"
+  }
+}
