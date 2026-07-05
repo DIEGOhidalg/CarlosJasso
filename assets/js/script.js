@@ -66,8 +66,10 @@
       if (alertBox) alertBox.classList.remove('show');
     };
 
-    const isValidEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isValidPhone = phone => /^[\d\s\+\-\(\)]{8,15}$/.test(phone.trim());
+    const isValidPhone = phone => {
+      const digits = phone.replace(/\D/g, '');
+      return /^[\d\s+\-()]+$/.test(phone.trim()) && digits.length >= 10 && digits.length <= 15;
+    };
 
     form.addEventListener('submit', e => {
       hideAlert();
@@ -78,15 +80,9 @@
 
       const nombre  = form.querySelector('#nombre');
       const telefono = form.querySelector('#telefono');
-      const correo  = form.querySelector('#correo');
-      const tipo    = form.querySelector('#tipo');
-      const mensaje = form.querySelector('#mensaje');
 
       if (!nombre.value.trim()) { nombre.classList.add('is-invalid'); valid = false; }
       if (!isValidPhone(telefono.value)) { telefono.classList.add('is-invalid'); valid = false; }
-      if (!isValidEmail(correo.value))  { correo.classList.add('is-invalid');  valid = false; }
-      if (!tipo.value)                  { tipo.classList.add('is-invalid');    valid = false; }
-      if (!mensaje.value.trim())        { mensaje.classList.add('is-invalid'); valid = false; }
 
       if (!valid) {
         e.preventDefault();

@@ -24,10 +24,8 @@ function limpiar(string $valor): string {
 
 $nombre   = limpiar($_POST['nombre']   ?? '');
 $telefono = limpiar($_POST['telefono'] ?? '');
-$correo   = limpiar($_POST['correo']   ?? '');
-$tipo     = limpiar($_POST['tipo']     ?? '');
-$mensaje  = limpiar($_POST['mensaje']  ?? '');
 $origen   = limpiar($_POST['origen']   ?? 'Landing Jaso y Asociados');
+$telefono_digitos = preg_replace('/\D+/', '', html_entity_decode($telefono, ENT_QUOTES, 'UTF-8'));
 
 // ── Validación backend ───────────────────────────────────────
 $errores = [];
@@ -36,20 +34,13 @@ if (empty($nombre)) {
     $errores[] = 'El nombre es requerido.';
 }
 
-if (empty($telefono) || !preg_match('/^[\d\s\+\-\(\)]{8,15}$/', $telefono)) {
+if (
+    empty($telefono)
+    || !preg_match('/^[\d\s+\-()]+$/', $telefono)
+    || strlen($telefono_digitos) < 10
+    || strlen($telefono_digitos) > 15
+) {
     $errores[] = 'El teléfono no es válido.';
-}
-
-if (empty($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-    $errores[] = 'El correo electrónico no es válido.';
-}
-
-if (empty($tipo)) {
-    $errores[] = 'El tipo de caso es requerido.';
-}
-
-if (empty($mensaje)) {
-    $errores[] = 'El mensaje es requerido.';
 }
 
 // ── Honeypot anti-spam (campo oculto vacío) ──────────────────
@@ -67,7 +58,10 @@ if (!empty($errores)) {
 
 // ── Construir correo HTML ────────────────────────────────────
 $fecha    = date('d/m/Y H:i:s');
-$asunto   = "Nuevo contacto desde la landing: {$nombre} — {$tipo}";
+$asunto   = "Nuevo contacto para Carlos Jaso: {$nombre}";
+$telefono_whatsapp = strlen($telefono_digitos) === 10
+    ? '52' . $telefono_digitos
+    : $telefono_digitos;
 
 $cuerpo_html = <<<HTML
 <!DOCTYPE html>
@@ -84,9 +78,7 @@ $cuerpo_html = <<<HTML
   .field { margin-bottom: 18px; }
   .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #A89F91; margin-bottom: 4px; }
   .value { font-size: 15px; color: #24272A; font-weight: 500; }
-  .mensaje-box { background: #F8F6F1; border-left: 4px solid #173F37; border-radius: 4px; padding: 14px 16px; font-size: 14px; line-height: 1.7; color: #4b5563; }
   .footer { background: #f0ede8; padding: 16px 32px; font-size: 12px; color: #A89F91; text-align: center; border-top: 1px solid #e8e4df; }
-  .badge { display: inline-block; background: #D9E1DC; color: #173F37; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
 </style>
 </head>
 <body>
@@ -102,19 +94,11 @@ $cuerpo_html = <<<HTML
     </div>
     <div class="field">
       <div class="label">Teléfono</div>
-      <div class="value">{$telefono}</div>
-    </div>
-    <div class="field">
-      <div class="label">Correo electrónico</div>
-      <div class="value"><a href="mailto:{$correo}" style="color:#173F37;">{$correo}</a></div>
-    </div>
-    <div class="field">
-      <div class="label">Tipo de caso</div>
-      <div class="value"><span class="badge">{$tipo}</span></div>
-    </div>
-    <div class="field">
-      <div class="label">Mensaje</div>
-      <div class="mensaje-box">{$mensaje}</div>
+      <div class="value"><a href="tel:+{$telefono_digitos}" style="color:#173F37;">{$telefono}</a></div>
+      <p style="margin:14px 0 0;">
+        <a href="tel:+{$telefono_digitos}" style="display:inline-block;background:#173F37;color:#fff;text-decoration:none;padding:10px 16px;border-radius:6px;margin-right:8px;">Llamar ahora</a>
+        <a href="https://wa.me/{$telefono_whatsapp}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:10px 16px;border-radius:6px;">Abrir WhatsApp</a>
+      </p>
     </div>
     <div class="field">
       <div class="label">Origen</div>
@@ -136,7 +120,6 @@ $boundary = md5(uniqid(rand(), true));
 $cabeceras  = "MIME-Version: 1.0\r\n";
 $cabeceras .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
 $cabeceras .= "From: " . NOMBRE_DESPACHO . " <" . EMAIL_REMITENTE . ">\r\n";
-$cabeceras .= "Reply-To: {$nombre} <{$correo}>\r\n";
 $cabeceras .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
 // Parte texto plano (fallback)
@@ -146,12 +129,7 @@ Fecha: {$fecha}
 
 Nombre:   {$nombre}
 Teléfono: {$telefono}
-Correo:   {$correo}
-Tipo:     {$tipo}
 Origen:   {$origen}
-
-Mensaje:
-{$mensaje}
 TXT;
 
 $cuerpo_completo  = "--{$boundary}\r\n";

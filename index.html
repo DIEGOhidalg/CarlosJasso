@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PZWB3MD6');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -35,6 +43,10 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZWB3MD6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
 <!-- ═══════════════════════════════════════════════════════════
      NAVBAR
@@ -108,8 +120,8 @@
       <!-- Columna derecha: formulario -->
       <div class="col-lg-6 reveal reveal-delay-2">
         <div class="form-card">
-          <h2 class="form-card-title">Cuéntanos sobre tu caso</h2>
-          <p class="form-card-lead">Completa tus datos y recibe orientación inicial de un despacho especializado en litigio civil y mercantil.</p>
+          <h2 class="form-card-title">Solicita una llamada</h2>
+          <p class="form-card-lead">Déjanos tu nombre y teléfono. El abogado Carlos Jaso se pondrá en contacto contigo.</p>
 
           <form id="contactForm" action="procesar-formulario.php" method="POST" novalidate>
             <!-- Campo oculto con origen -->
@@ -118,60 +130,27 @@
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre completo *</label>
               <input type="text" class="form-control" id="nombre" name="nombre"
-                     placeholder="Tu nombre" required />
+                     placeholder="Tu nombre" autocomplete="name" required />
               <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
             </div>
 
-            <div class="row g-3 mb-3">
-              <div class="col-sm-6">
-                <label for="telefono" class="form-label">Teléfono *</label>
-                <input type="tel" class="form-control" id="telefono" name="telefono"
-                       placeholder="+52 55 0000 0000" required />
-                <div class="invalid-feedback">Ingresa un teléfono válido.</div>
-              </div>
-              <div class="col-sm-6">
-                <label for="correo" class="form-label">Correo electrónico *</label>
-                <input type="email" class="form-control" id="correo" name="correo"
-                       placeholder="tucorreo@email.com" required />
-                <div class="invalid-feedback">Ingresa un correo válido.</div>
-              </div>
-            </div>
-
             <div class="mb-3">
-              <label for="tipo" class="form-label">Tipo de caso *</label>
-              <select class="form-select" id="tipo" name="tipo" required>
-                <option value="">Selecciona una opción</option>
-                <option>Incumplimiento de contrato</option>
-                <option>Cobro de deuda o pagaré</option>
-                <option>Disputa inmobiliaria</option>
-                <option>Controversia societaria</option>
-                <option>Daños y perjuicios</option>
-                <option>Nulidad o rescisión contractual</option>
-                <option>Amparo civil o mercantil</option>
-                <option>Litigio sucesorio / patrimonial</option>
-                <option>Arbitraje</option>
-                <option>Otro</option>
-              </select>
-              <div class="invalid-feedback">Selecciona el tipo de caso.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="mensaje" class="form-label">Describe brevemente tu situación *</label>
-              <textarea class="form-control" id="mensaje" name="mensaje" rows="3"
-                        placeholder="Cuéntanos los aspectos principales de tu caso…" required></textarea>
-              <div class="invalid-feedback">Por favor describe tu caso.</div>
+              <label for="telefono" class="form-label">Teléfono *</label>
+              <input type="tel" class="form-control" id="telefono" name="telefono"
+                     placeholder="+52 55 0000 0000" autocomplete="tel" inputmode="tel" required />
+              <div class="invalid-feedback">Ingresa un teléfono válido.</div>
             </div>
 
             <div id="formAlert" class="form-alert form-alert-error" role="alert" aria-live="polite"></div>
 
             <button type="submit" class="btn-submit">
               <i class="bi bi-send-fill"></i>
-              Enviar información
+              Solicitar contacto
             </button>
 
             <p class="form-privacy">
               <i class="bi bi-shield-lock-fill me-1"></i>
-              Tu información es confidencial y no será compartida con terceros.
+              Al enviar aceptas ser contactado por Carlos Jaso mediante llamada o WhatsApp.
             </p>
           </form>
         </div>
