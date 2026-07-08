@@ -666,6 +666,17 @@ textarea.form-control { resize: vertical; min-height: 90px; }
   letter-spacing: .04em;
 }
 
+/* Foto de Carlos */
+.carlos-photo {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 1.25rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--sombra-media);
+}
+.carlos-photo img { display: block; width: 100%; height: auto; }
+
 /* ── Áreas de Práctica ──────────────────────────────────────── */
 #areas {
   padding: 5rem 0;
